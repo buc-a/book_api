@@ -14,7 +14,7 @@ let db;
 let booksCollection;
 
 // Подключение к MongoDB
-MongoClient.connect(MONGO_URI, { useUnifiedTopology: true })
+MongoClient.connect(MONGO_URI)
   .then(client => {
     db = client.db('booksdb');
     booksCollection = db.collection('books');
