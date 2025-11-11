@@ -1,14 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 
-app.use(cors({
-  origin: 'http://localhost:3000'
-}));
+app.use(cors());
 app.use(bodyParser.json());
 
 let db;
@@ -22,6 +21,7 @@ MongoClient.connect(MONGO_URI)
     app.listen(PORT, () => console.log(`Server started on ${PORT}`));
   })
   .catch(err => console.error('DB connection error:', err));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Получить все книги
 app.get('/api/books', async (req, res) => {
